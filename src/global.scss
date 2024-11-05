@@ -35,3 +35,77 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@mixin generate-spacing ($upper-limit) {
+  @for $i from 1 to $upper-limit {
+      .pad-left-#{$i} {
+          padding-left: $i*2px;
+      }
+
+      .pad-right-#{$i} {
+          padding-right: $i*2px;
+      }
+
+      .pad-x-#{$i} {
+          padding-left: $i*2px;
+          padding-right: $i*2px;
+      }
+
+      .pad-y-#{$i} {
+          padding-top: $i*2px;
+          padding-bottom: $i*2px;
+      }
+
+      .pad-bot-#{$i} {
+          padding-bottom: $i*2px;
+      }
+
+      .pad-top-#{$i} {
+          padding-top: $i*2px;
+      }
+
+      .margin-bot-#{$i} {
+          margin-bottom: $i*2px;
+      }
+
+      .margin-top-#{$i} {
+          margin-top: $i*2px;
+      }
+
+      .margin-x-#{$i} {
+          margin-left: $i*2px;
+          margin-right: $i*2px;
+      }
+
+      .margin-y-#{$i} {
+          margin-bottom: $i*2px;
+          margin-top: $i*2px;
+      }
+
+      .margin-left-#{$i} {
+          margin-left: $i*2px;
+      }
+
+      .margin-right-#{$i} {
+          margin-right: $i*2px;
+      }
+      
+      .flex-#{$i} {
+        flex: $i;
+      }
+  }
+}
+
+@include generate-spacing(40);
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mdc-notched-outline__notch
+{
+  border-right: none;
+}

@@ -1,0 +1,41 @@
+<div class="flex items-center justify-center w-full h-full bg-night">
+  <div class="card-size bg-white rounded-lg pad-x-7 pad-y-5">
+    <div class="flex justify-center">
+      <span class="text-black font-bold text-2xl">Login</span>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="w-full margin-y-7">
+        <ion-input
+          label="Username"
+          label-placement="floating"
+          fill="solid"
+          errorText="Invalid Username"
+          formControlName="username"
+        ></ion-input>
+        <ion-input
+          label="Password"
+          label-placement="floating"
+          fill="solid"
+          type="password"
+          formControlName="password"
+          errorText="Invalid password"
+        />
+      </div>
+      <div>
+        <ion-button
+          [disabled]="!loginForm.valid || (authFacade.isProcessing$ | async)"
+          type="submit"
+          class="w-full"
+        >
+          @if(!(authFacade.isProcessing$ | async)) {
+          <span class="text-white">Submit </span>
+          } @else {
+          <div class="w-7 w-full flex justify-center items-center">
+            <ion-spinner></ion-spinner>
+          </div>
+          }
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</div>
