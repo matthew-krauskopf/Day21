@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 import { StoreType } from '../../model/storeType';
@@ -19,7 +20,7 @@ export class AuthEffects {
   router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
   localStorage: StoreService = inject(StoreService);
-  //snackbar: MatSnackBar = inject(MatSnackBar);
+  toast: ToastController = inject(ToastController);
 
   constructor(private actions$: Actions) {}
 
@@ -74,16 +75,21 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  loginFailed$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loginFailed),
-      map(() => {
-        //this.snackbar.open('Network Error: Please Try Again', 'Dismiss', {
-        //  duration: 5000,
-        //});
-        return logout();
-      })
-    )
+  loginFailed$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loginFailed),
+        map(() =>
+          this.toast
+            .create({
+              message: 'Network Error: Please Try Again',
+              duration: 2500,
+              position: 'bottom',
+            })
+            .then((res) => res.present())
+        )
+      ),
+    { dispatch: false }
   );
 
   loginRejected$ = createEffect(
@@ -91,13 +97,13 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(loginRejected),
         map(() => {
-          //this.snackbar.open(
-          //  'Login failed. Please check crednetials and try again',
-          //  'Dismiss',
-          //  {
-          //    duration: 2000,
-          //  }
-          //);
+          this.toast
+            .create({
+              message: 'Login failed. Please check crednetials and try again',
+              duration: 2000,
+              position: 'bottom',
+            })
+            .then((res) => res.present());
         })
       ),
     { dispatch: false }
@@ -106,7 +112,7 @@ export class AuthEffects {
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(logout),
+        ofType(logout, loginFailed),
         map(() => {
           this.localStorage.removeItem(StoreType.USER);
           this.localStorage.removeItem(StoreType.PASSWORD);
