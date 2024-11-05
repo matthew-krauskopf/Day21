@@ -7,31 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  IonButton,
-  IonContent,
-  IonInput,
-  IonItem,
-  IonList,
-  IonSpinner,
-} from '@ionic/angular/standalone';
+import { IonInput, IonSpinner } from '@ionic/angular/standalone';
 import { AuthFacade } from '../../features/auth/auth.facade';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    IonSpinner,
-    IonButton,
-    IonItem,
-    IonList,
-    IonInput,
-    IonContent,
-    ReactiveFormsModule,
-    FormsModule,
-    NgIf,
-    CommonModule,
-  ],
+  imports: [IonicModule, ReactiveFormsModule, FormsModule, NgIf, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
