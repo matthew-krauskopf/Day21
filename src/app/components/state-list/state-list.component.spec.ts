@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { MainViewComponent } from './main-view.component';
+import { StateListComponent } from './state-list.component';
 
-describe('MainViewComponent', () => {
-  let component: MainViewComponent;
-  let fixture: ComponentFixture<MainViewComponent>;
+describe('StateListComponent', () => {
+  let component: StateListComponent;
+  let fixture: ComponentFixture<StateListComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainViewComponent ],
+      declarations: [ StateListComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MainViewComponent);
+    fixture = TestBed.createComponent(StateListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

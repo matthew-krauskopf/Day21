@@ -1,3 +1,9 @@
-<p>
-  dashboard works!
-</p>
+<div class="flex flex-col h-full">
+  <div class="header">
+    <app-top-bar></app-top-bar>
+  </div>
+  <div class="flex flex-row side-panel">
+    <app-state-list class="w-48"></app-state-list>
+    <router-outlet></router-outlet>
+  </div>
+</div>

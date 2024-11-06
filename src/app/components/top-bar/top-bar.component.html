@@ -1,0 +1,18 @@
+<div
+  class="pad-y-5 pad-x-5 w-full h-full flex justify-between items-center border"
+>
+  <div>
+    <img class="w-24" src="{{ logo }}" />
+  </div>
+  <div>
+    <span class="text-3xl">State Viewer</span>
+  </div>
+  <div>
+    <button
+      (click)="authFacade.logout()"
+      class="flex justify-center items-center profile-button"
+    >
+      <span>Log Out</span>
+    </button>
+  </div>
+</div>

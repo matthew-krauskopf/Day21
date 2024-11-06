@@ -1,0 +1,11 @@
+<div class="scroll-pane border">
+  <ion-list lines="full">
+    @for(state of stateFacade.states$ | async; track state.id) {
+    <ion-item class="cursor-pointer" (click)="stateFacade.loadState(state.id)">
+      <ion-label>
+        <div class="flex justify-center">{{ state.name }}</div></ion-label
+      >
+    </ion-item>
+    }
+  </ion-list>
+</div>
