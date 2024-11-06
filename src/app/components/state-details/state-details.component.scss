@@ -1,0 +1,12 @@
+.window {
+  width: calc(100vw - 200px);
+}
+
+.cancel {
+  --color: black;
+  --background: white;
+}
+
+.delete {
+  --background: red;
+}

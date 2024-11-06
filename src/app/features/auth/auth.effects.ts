@@ -68,7 +68,7 @@ export class AuthEffects {
             String(payload.user.password)
           );
           if (this.router.url.includes('login')) {
-            this.router.navigate(['dashboard', 'playlists']);
+            this.router.navigate(['dashboard']);
           }
         })
       ),

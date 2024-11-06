@@ -4,17 +4,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeComponent } from './components/home/home.component';
+import { StateDetailsComponent } from './components/state-details/state-details.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    loadChildren: () =>
-      import('./components/home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: 'login',
@@ -28,7 +25,21 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'tracks',
+        redirectTo: 'states',
+      },
+      {
+        path: 'states',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: HomeComponent,
+          },
+          {
+            path: ':id',
+            component: StateDetailsComponent,
+          },
+        ],
       },
     ],
   },

@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthEffects } from './features/auth/auth.effects';
 import { authReducer } from './features/auth/auth.state';
+import { stateReducer } from './features/state/state.state';
+import { StateEffects } from './features/state/state.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,12 +27,13 @@ import { authReducer } from './features/auth/auth.state';
     EffectsModule.forRoot([]),
   ],
   providers: [
-    provideEffects(AuthEffects),
+    provideEffects(AuthEffects, StateEffects),
     provideHttpClient(),
     provideStore(),
     importProvidersFrom(
       StoreModule.forRoot({
         auth: authReducer,
+        state: stateReducer,
       })
     ),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

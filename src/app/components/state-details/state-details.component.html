@@ -1,3 +1,18 @@
 @if(stateFacade.state$ | async; as state) {
-<span>{{ state.name }}</span>
+<div class="bg-main window h-full flex flex-col">
+  <div class="flex justify-end w-full">
+    <ion-fab class="mx-5 my-5">
+      <ion-fab-button class="delete" (click)="stateFacade.deleteState()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <div class="my-5 flex justify-center">
+    <span class="text-3xl bold text-white">{{ state.name }}</span>
+  </div>
+  <div class="flex flex-row">
+    <ion-button class="cancel">Cancel</ion-button>
+    <ion-button>Save</ion-button>
+  </div>
+</div>
 }

@@ -1,18 +1,18 @@
 <div
-  class="pad-y-5 pad-x-5 w-full h-full flex justify-between items-center border"
+  class="bg-top pad-y-5 pad-x-5 w-full h-full flex justify-between items-center border-b"
 >
   <div>
     <img class="w-24" src="{{ logo }}" />
   </div>
   <div>
-    <span class="text-3xl">State Viewer</span>
+    <span class="text-3xl text-white">State Viewer</span>
   </div>
   <div>
-    <button
+    <ion-button
       (click)="authFacade.logout()"
       class="flex justify-center items-center profile-button"
     >
       <span>Log Out</span>
-    </button>
+    </ion-button>
   </div>
 </div>
