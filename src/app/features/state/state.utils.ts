@@ -41,10 +41,3 @@ export function createNewState(states: State[]) {
     name: 'New State',
   };
 }
-
-export function assignIds(states: State[]) {
-  let i = 0;
-  return states.map((s) => {
-    return { ...s, id: ++i };
-  });
-}

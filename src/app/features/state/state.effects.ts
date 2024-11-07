@@ -8,9 +8,12 @@ import {
   addState,
   deleteState,
   loadState,
+  loadStateFail,
   loadStates,
   loadStatesFail,
   loadStatesSuccess,
+  loadStateSuccess,
+  updateState,
 } from './state.actions';
 import { State } from './state.entity';
 import { selectedState } from './state.selectors';
@@ -36,13 +39,37 @@ export class StateEffects {
     )
   );
 
-  loadState$ = createEffect(
+  loadState$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadState),
+      map((payload) => loadStateSuccess({ stateId: payload.stateId }))
+    )
+  );
+
+  loadStateSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(loadState),
+        ofType(loadStateSuccess),
         tap((payload) => {
           this.router.navigate(['dashboard', 'states', payload.stateId]);
         })
+      ),
+    { dispatch: false }
+  );
+
+  loadStateFailed$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadStateFail),
+        map(() =>
+          this.toast
+            .create({
+              message: 'State not found',
+              duration: 5000,
+              position: 'bottom',
+            })
+            .then((res) => res.present())
+        )
       ),
     { dispatch: false }
   );
@@ -76,7 +103,6 @@ export class StateEffects {
               position: 'bottom',
             })
             .then((res) => res.present());
-          this.router.navigate(['/dashboard']);
         })
       ),
     { dispatch: false }
@@ -99,6 +125,23 @@ export class StateEffects {
     { dispatch: false }
   );
 
+  updateState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateState),
+        map(() =>
+          this.toast
+            .create({
+              message: 'State successfully updated',
+              duration: 3000,
+              position: 'bottom',
+            })
+            .then((res) => res.present())
+        )
+      ),
+    { dispatch: false }
+  );
+
   navigateToNewState$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -107,6 +150,15 @@ export class StateEffects {
         map(([_, state]) =>
           this.router.navigate(['dashboard', 'states', state ? state.id : ''])
         )
+      ),
+    { dispatch: false }
+  );
+
+  navigateHome$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadStateFail, deleteState),
+        tap(() => this.router.navigate(['dashboard']))
       ),
     { dispatch: false }
   );

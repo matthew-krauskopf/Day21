@@ -3,15 +3,16 @@ import {
   addState,
   deleteState,
   loadState,
+  loadStateFail,
   loadStates,
   loadStatesFail,
   loadStatesSuccess,
+  loadStateSuccess,
   unloadState,
   updateState,
 } from './state.actions';
 import { State } from './state.entity';
 import {
-  assignIds,
   createNewState,
   markStateDeleted,
   updateStateDetails,
@@ -36,20 +37,21 @@ export const stateKey = 'state';
 
 export const stateReducer = createReducer(
   stateState,
-  on(loadStates, (state) => ({
+  on(loadState, loadStates, (state) => ({
     ...state,
+    selectedState: undefined,
     isLoading: true,
   })),
   on(loadStatesSuccess, (state, { states }) => ({
     ...state,
     isLoading: false,
-    states: assignIds(states),
+    states: states,
   })),
-  on(loadStatesFail, (state) => ({
+  on(loadStateFail, loadStateSuccess, loadStatesFail, (state) => ({
     ...state,
     isLoading: false,
   })),
-  on(loadState, (state, { stateId }) => ({
+  on(loadStateSuccess, (state, { stateId }) => ({
     ...state,
     selectedState: stateId,
   })),

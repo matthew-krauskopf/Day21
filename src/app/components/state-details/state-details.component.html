@@ -1,18 +1,50 @@
-@if(stateFacade.state$ | async; as state) {
-<div class="bg-main window h-full flex flex-col">
-  <div class="flex justify-end w-full">
-    <ion-fab class="mx-5 my-5">
-      <ion-fab-button class="delete" (click)="stateFacade.deleteState()">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+@if((stateFacade.isProcessing$)) { @if(stateFacade.state$ | async; as state) {
+<div class="bg-main window h-full flex flex-col px-24">
+  <div class="w-64 my-5 flex justify-center">
+    <span class="text-4xl bold text-white title">{{ state.name }}</span>
   </div>
-  <div class="my-5 flex justify-center">
-    <span class="text-3xl bold text-white">{{ state.name }}</span>
+  <div class="w-fit">
+    <form [formGroup]="form" (ngSubmit)="updateState()">
+      <div class="flex flex-col">
+        <ion-input
+          class="w-64 my-2"
+          maxlength="20"
+          counter="true"
+          labelPlacement="floating"
+          label="Name"
+          fill="solid"
+          formControlName="name"
+          errorText="Unique name is required"
+        ></ion-input>
+        <ion-input
+          class="w-64 my-2"
+          maxlength="2"
+          label="Abbreviation"
+          labelPlacement="floating"
+          fill="solid"
+          formControlName="abbreviation"
+          errorText="Abbreviation must contain only letters"
+        ></ion-input>
+        @if(form.errors?.['invalidAbbreviation']) {
+        <div class="w-64 alert text-xs">
+          Abbreviation must start with the same letter as the state name
+        </div>
+        }
+      </div>
+      <div class="flex flex-col my-3 w-fit">
+        <ion-button class="cancel w-64" (click)="cancel()">Cancel</ion-button>
+        <ion-button [disabled]="!form.valid" type="submit" class="w-64"
+          >Save</ion-button
+        >
+        <ion-button class="w-64 delete" (click)="stateFacade.deleteState()"
+          >Delete</ion-button
+        >
+      </div>
+    </form>
   </div>
-  <div class="flex flex-row">
-    <ion-button class="cancel">Cancel</ion-button>
-    <ion-button>Save</ion-button>
-  </div>
+</div>
+} } @else {
+<div class="py-16 window h-full flex justify-center">
+  <ion-spinner class="h-32 w-32"></ion-spinner>
 </div>
 }

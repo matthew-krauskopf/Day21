@@ -4,8 +4,10 @@ import {
   addState,
   deleteState,
   loadState,
+  loadStateFail,
   loadStates,
   unloadState,
+  updateState,
 } from './state.actions';
 import {
   isProcessing,
@@ -48,5 +50,13 @@ export class StateFacade {
 
   addState() {
     this.store.dispatch(addState());
+  }
+
+  updateState(name: string, abbreviation: string) {
+    this.store.dispatch(updateState({ name, abbreviation }));
+  }
+
+  loadStateFailed() {
+    this.store.dispatch(loadStateFail());
   }
 }

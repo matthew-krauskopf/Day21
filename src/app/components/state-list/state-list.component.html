@@ -1,4 +1,5 @@
-<div class="scroll-pane border-r w-full bg-gray">
+<div class="scroll-pane w-full">
+  @if(!(stateFacade.isProcessing$ | async)) {
   <ion-list lines="full">
     <ion-item class="cursor-pointer" (click)="stateFacade.addState()">
       <ion-label>
@@ -11,9 +12,22 @@
       (click)="stateFacade.loadState(state.id)"
     >
       <ion-label>
-        <div class="flex justify-center">{{ state.name }}</div></ion-label
+        <div class="flex">
+          <span class="text-gray flex-1">{{ state.abbreviation }}</span>
+          <span class="flex-4 flex justify-center">{{ state.name }}</span>
+        </div></ion-label
       >
     </ion-item>
     }
+    <ion-item class="cursor-pointer" (click)="stateFacade.addState()">
+      <ion-label>
+        <div class="flex justify-center">Add New State</div></ion-label
+      >
+    </ion-item>
   </ion-list>
+  } @else {
+  <div class="py-16 w-full flex justify-center">
+    <ion-spinner class="h-32 w-32"></ion-spinner>
+  </div>
+  }
 </div>

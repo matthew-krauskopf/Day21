@@ -15,6 +15,13 @@ export const loadState = createAction(
   props<{ stateId: number }>()
 );
 
+export const loadStateSuccess = createAction(
+  '[Main Panel] Load State Success',
+  props<{ stateId: number }>()
+);
+
+export const loadStateFail = createAction('[Main Panel] Load State Failed');
+
 export const unloadState = createAction('[Main Panel] Unload State');
 
 export const updateState = createAction(

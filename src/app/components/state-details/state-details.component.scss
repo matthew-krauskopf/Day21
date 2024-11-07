@@ -10,3 +10,21 @@
 .delete {
   --background: red;
 }
+
+.title {
+  font-weight: bold;
+  color: white;
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;  
+}
+
+.alert {
+  color: #c5000f;
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  flex-flow: wrap;
+}

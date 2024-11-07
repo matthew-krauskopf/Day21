@@ -4,7 +4,9 @@ import { stateKey, StateState } from './state.state';
 export const selectStateState = createFeatureSelector<StateState>(stateKey);
 
 export const selectStates = createSelector(selectStateState, (stateState) =>
-  stateState.states.filter((s) => s.deleted != true)
+  stateState.states
+    .filter((s) => s.deleted != true)
+    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
 );
 
 export const statesExist = createSelector(
